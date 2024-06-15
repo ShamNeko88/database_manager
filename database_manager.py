@@ -30,7 +30,6 @@ class ConnectPostgreSQL:
 
     Methods:
         execute_sql: SQL文を直接実行
-        select_all: テーブル名指定して全行取得
     """
     def __init__(
           self, user_name: str, password: str,
