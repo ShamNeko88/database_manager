@@ -14,10 +14,10 @@ Examples:
     >>> print(result)
         [[hoge1, hoge2], [hoge3, hoge4]...]
 """
-
 from sqlalchemy import create_engine, text
 
 
+# PostgreSQLに接続
 class ConnectPostgreSQL:
     """
     PostgreSQLに接続するクラス
@@ -55,4 +55,42 @@ class ConnectPostgreSQL:
                 sql_result = []
                 for row in result:
                     sql_result.append(list(row))
-            return sql_result
+                return sql_result
+
+
+# sqlite3
+class ConnectSqlite3:
+    """
+    Sqlite3に接続するクラス
+
+    Args:
+        database_name (str): データベース名
+
+    Methods:
+        execute_sql: SQL文を直接実行
+
+    Return:
+        1行ずつリストを返す
+    """
+    def __init__(self, database_name: str):
+        # DB接続に必要なエンジンを作成
+        self.engine = create_engine(
+            f"sqlite:///{database_name}", echo=True
+        )
+
+    def execute_sql(self, sql: str, get_result: bool = False) -> list:
+        """
+        SQL文を直接実行
+
+        Args :
+            sql (str): SQL文
+            return_result (bool): 結果を返すかどうかのフラグ。デフォルトはFalse
+        """
+        with self.engine.begin() as connection:
+            input_sql = text(f"{sql}")
+            result = connection.execute(input_sql)
+            if get_result is True:
+                sql_result = []
+                for row in result:
+                    sql_result.append(list(row))
+                return sql_result
