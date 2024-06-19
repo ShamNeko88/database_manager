@@ -25,7 +25,7 @@ class ConnectPostgreSQL:
     Args:
         user_name (str): ユーザー名
         password (str): パスワード
-        admin_flg (str): ホスト
+        host (str): ホスト
         database_name (str): データベース名
 
     Methods:
