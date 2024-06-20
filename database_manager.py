@@ -10,7 +10,7 @@ Examples:
     ...     USER_NAME, PASSWORD, HOST, DATABASE_NAME
     ... )
     >>> sql = "SELECT * FROM hoge"
-    >>> result = con_psg.execute_sql(sql, get_result=True)
+    >>> result = connect_db.execute_sql(sql, get_result=True)
     >>> print(result)
         [[hoge1, hoge2], [hoge3, hoge4]...]
 """
