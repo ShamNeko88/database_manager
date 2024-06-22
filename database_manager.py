@@ -46,10 +46,10 @@ class ConnectPostgreSQL:
 
         Args :
             sql (str): SQL文
-            return_result (bool): 結果を返すかどうかのフラグ。デフォルトはFalse
+            return_result (bool): 結果を返すかどうかのフラグ
         """
         with self.engine.begin() as connection:
-            input_sql = text(f"{sql}")
+            input_sql = text(sql)
             result = connection.execute(input_sql)
             if get_result is True:
                 sql_result = []
@@ -58,7 +58,7 @@ class ConnectPostgreSQL:
                 return sql_result
 
 
-# sqlite3
+# sqlite3に接続
 class ConnectSqlite3:
     """
     Sqlite3に接続するクラス
@@ -84,13 +84,33 @@ class ConnectSqlite3:
 
         Args :
             sql (str): SQL文
-            return_result (bool): 結果を返すかどうかのフラグ。デフォルトはFalse
+            return_result (bool): 結果を返すかどうかのフラグ
         """
         with self.engine.begin() as connection:
-            input_sql = text(f"{sql}")
+            input_sql = text(sql)
             result = connection.execute(input_sql)
             if get_result is True:
-                sql_result = []
-                for row in result:
-                    sql_result.append(list(row))
-                return sql_result
+                sql_result = [list(row) for row in result]
+            return sql_result
+
+    def execute_sql_file(
+        self,
+        file_path: str,
+        get_result: bool = False,
+        encoding: str = "utf-8"
+    ) -> list:
+        """
+        SQLファイルを実行
+
+        Args :
+            file_path (str): sqlファイルパス
+            return_result (bool): 結果を返すかどうかのフラグ
+            encoding (str): 文字コード
+        """
+        with open(file_path, "r", encoding=encoding) as f:
+            sql = f.read()
+        with self.engine.begin() as connection:
+            result = connection.execute(text(sql))
+            if get_result is True:
+                sql_result = [list(row) for row in result]
+            return sql_result
