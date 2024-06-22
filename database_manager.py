@@ -91,7 +91,7 @@ class ConnectSqlite3:
             result = connection.execute(input_sql)
             if get_result is True:
                 sql_result = [list(row) for row in result]
-            return sql_result
+                return sql_result
 
     def execute_sql_file(
         self,
@@ -113,4 +113,4 @@ class ConnectSqlite3:
             result = connection.execute(text(sql))
             if get_result is True:
                 sql_result = [list(row) for row in result]
-            return sql_result
+                return sql_result
