@@ -5,7 +5,6 @@ Examples:
     PostgreSQLに接続してテーブル全件取得してコンソールに出力
 
     >>> import database_manager
-    >>> posgresql = database_manager
     >>> connect_db = database_manager.ConnectPostgreSQL(
     ...     USER_NAME, PASSWORD, HOST, DATABASE_NAME
     ... )
